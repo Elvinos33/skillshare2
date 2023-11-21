@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Register() {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -72,7 +74,8 @@ export default function Register() {
   
             <p className="mt-10 text-center text-sm text-gray-500">
               Har du allerede en bruker?
-              <a href="#" className="font-semibold leading-6 text-primary hover:text-secondary"> Logg inn</a>
+              <Link href="/login" className="font-semibold leading-6 text-primary hover:text-secondary"> Logg inn
+              </Link>
             </p>
           </div>
         </div>

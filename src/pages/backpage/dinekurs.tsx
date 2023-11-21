@@ -8,7 +8,7 @@ export default function DineKurs() {
                     <Link href="/backpage/konto" className="w-full flex flex-start py-4 pl-4 hover:bg-background font-semibold text-background hover:text-primary">Din Konto</Link>
                     <Link href="/backpage/logg" className="w-full flex flex-start py-4 pl-4 hover:bg-background font-semibold text-background hover:text-primary">Logg</Link>
                     <button className="w-full flex flex-start py-4 pl-4 bg-background font-semibold text-primary">Dine Kurs</button>
-                    <Link href="/backpage/liktekurs" className="w-full flex flex-start py-4 pl-4 hover:bg-background font-semibold text-background hover:text-primary">Logg</Link>
+                    <Link href="/backpage/liktekurs" className="w-full flex flex-start py-4 pl-4 hover:bg-background font-semibold text-background hover:text-primary">Likte Kurs</Link>
                     <div className="h-[24rem]"></div>
                     <button className="w-full flex flex-start py-4 pl-4 hover:bg-background font-semibold text-background hover:text-primary">Tilbake</button>
                     <button className="w-full flex flex-start py-4 pl-4 hover:bg-background font-semibold text-background hover:text-primary">Logg ut</button>

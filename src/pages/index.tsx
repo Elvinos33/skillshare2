@@ -1,7 +1,7 @@
 import Header from '@/components/header'
 import React, {useState, useEffect} from 'react';
 import {getDatabase, ref, onValue} from 'firebase/database';
-import app from '@/components/firebaseConfig';
+import app from "@/lib/firebaseConfig"
 
 export default function Home() {
 

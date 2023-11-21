@@ -28,11 +28,13 @@ export default function Home() {
   return (
     <main className="w-screen h-screen bg-background">
       <Header/>
-      <div className='px-16 w-full h-flex h-[42rem] overflow-y-auto p-2'>
-        <ul className=''>
+      <div className='w-full h-[42rem] overflow-y-auto'>
+        <ul className='w-screen min-h-[50rem] grid grid-cols-5 pt-16 px-16 overflow-y'>
           {data.map((item, index) => (
-              <li key={index} className=''>
-                {item.navn}
+              <li key={index} className='w-full h-[6rem] px-2'>
+                <div className='border-primary border h-[14rem] p-2 rounded-lg'>
+                  {item.navn}
+                </div>
               </li>
             ))}
           </ul>

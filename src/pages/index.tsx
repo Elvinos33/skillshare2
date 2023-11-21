@@ -34,6 +34,7 @@ export default function Home() {
               <li key={index} className='w-full h-[6rem] px-2'>
                 <div className='border-primary border h-[14rem] p-2 rounded-lg'>
                   {item.navn}
+                  {item.tema}
                 </div>
               </li>
             ))}

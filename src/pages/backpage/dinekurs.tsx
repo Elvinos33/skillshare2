@@ -26,7 +26,7 @@ export default function DineKurs() {
     beskrivelse: '',
     kommenter: '',
     anmelding: '',
-    videofil: '',
+    //videofil: '',
     // ekstrafil: '', 
   });
 
@@ -54,10 +54,7 @@ export default function DineKurs() {
             await uploadBytes(videoFileRef, videoFile);
             videoFileUrl = await getDownloadURL(videoFileRef);
             console.log(videoFileUrl)
-            setFormData({
-            ...formData,
-            videofil: videoFileUrl
-            })
+
         }
 
         if (extraFile) {
@@ -77,9 +74,6 @@ export default function DineKurs() {
           const databaseRef = ref(database, 'Kurs');
           LukkOverlay();
 
-          await uploadFiles();
-
-          console.log(formData)
   
           push(databaseRef, formData)
               .then(() => {
@@ -173,7 +167,7 @@ export default function DineKurs() {
                         </div>
                         <div className='flex items-center justify-between ml-8 mb-12'>
                           <p className='text-primary font-semibold'>Last opp videofilen din her</p>
-                          <input type="file" onChange={(e) => handleFileChange(e, setVideoFile)} className='w-44' />
+                          <input type="file" className='w-44' />
                         </div>
                         <div className='flex items-center justify-between ml-8 mb-12'>
                           <p className='text-primary font-semibold'>Ekstra filer (For eksempel microsoft dokumenter)</p>

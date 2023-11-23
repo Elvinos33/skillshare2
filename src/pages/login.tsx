@@ -26,24 +26,10 @@ export default function Login() {
       const user = await signIn(email, password);
       console.log("User logged in:", user);
       router.push("/backpage/konto");
-    } catch (error: any) {
-      console.error("Firebase Auth Error:", error);
-  
-      switch (error.code) {
-        case "auth/user-not-found":
-          setErrorMessage("Brukeren finnes ikke");
-          break;
-        case "auth/wrong-password":
-          setErrorMessage("Feil passord");
-          break;
-        case "auth/invalid-email":
-          setErrorMessage("Ugyldig e-postadresse");
-          break;
-  
-        default:
-          setErrorMessage(error.message || "Innlogging feilet");
-      }
+    } catch (error) {
+      setErrorMessage(error as string);
     }
+    
   
   };
   return (

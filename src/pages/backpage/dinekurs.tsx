@@ -22,7 +22,6 @@ export default function DineKurs() {
     beskrivelse: '',
     kommenter: '',
     anmelding: '',
-    seertall: '',
     // videofil: '',
     // ekstrafil: '', 
   });
@@ -50,7 +49,6 @@ export default function DineKurs() {
                     beskrivelse: '',
                     kommenter: '',
                     anmelding: '',
-                    seertall: '',
                     // videofil: '',
                     // ekstrafil: '',
                   });
@@ -105,13 +103,33 @@ export default function DineKurs() {
                           <p className='text-primary font-semibold'>Skal anmelding av kurset være publisert?</p>
                           <input name="anmelding" required value={formData.anmelding} onChange={handleInputChange} type="checkbox" className='w-[2rem] h-[2rem]' />
                         </div>
-                        <div className='flex items-center justify-between ml-8 mb-12'>
-                          <p className='text-primary font-semibold'>Skal seertall være publisert?</p>
-                          <input name="seertall" required value={formData.seertall} onChange={handleInputChange} type="checkbox" className='w-[2rem] h-[2rem]' />
+                        <div className='flex items-center justify-between ml-8 mb-4'>
+                          <div className='flex w-1/3 items-center'>
+                            <input  type="checkbox" className='w-[2rem] h-[2rem] mr-2' />
+                            <p className='text-primary font-semibold'>Sport</p>
+                          </div>
+                          <div className='flex w-1/3 items-center'>
+                            <input type="checkbox" className='w-[2rem] h-[2rem] mr-2' />
+                            <p className='text-primary font-semibold'>Spill/Videospill</p>
+                          </div>
+                          <div className='flex w-1/3 items-center'>
+                            <input type="checkbox" className='w-[2rem] h-[2rem] mr-2' />
+                            <p className='text-primary font-semibold'>Film/Video</p>
+                          </div>
                         </div>
-                        <div className='flex items-center justify-between ml-8 mb-12'>
-                          <p className='text-primary font-semibold'>Hva spiste du til frokost i dag?</p>
-                          <input type="checkbox" className='w-[2rem] h-[2rem]' />
+                        <div className='flex items-center ml-8 mb-12'>
+                          <div className='flex w-1/3 items-center'>
+                            <input type="checkbox" className='w-[2rem] h-[2rem] mr-2' />
+                            <p className='text-primary font-semibold'>Skole/Fag</p>
+                          </div>
+                          <div className='flex w-1/3 items-center'>
+                            <input type="checkbox" className='w-[2rem] h-[2rem] mr-2' />
+                            <p className='text-primary font-semibold'>Programmering</p>
+                          </div>
+                          <div className='flex w-1/3 items-center'>
+                            <input type="checkbox" className='w-[2rem] h-[2rem] mr-2' />
+                            <p className='text-primary font-semibold'>Utforsk</p>
+                          </div>
                         </div>
                         <div className='flex items-center justify-between ml-8 mb-12'>
                           <p className='text-primary font-semibold'>Last opp videofilen din her</p>

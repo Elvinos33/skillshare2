@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { getDatabase, ref, push } from 'firebase/database';
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import app from '@/lib/firebaseConfig';
 
 export default function DineKurs() {
@@ -17,12 +18,15 @@ export default function DineKurs() {
   const database = getDatabase(app);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const [videoFile, setVideoFile] = useState(null);
+  const [extraFile, setExtraFile] = useState(null);
+
   const [formData, setFormData] = useState({
     tittel: '',
     beskrivelse: '',
     kommenter: '',
     anmelding: '',
-    // videofil: '',
+    videofil: '',
     // ekstrafil: '', 
   });
 
@@ -34,12 +38,48 @@ export default function DineKurs() {
       });
   };
 
-  const handleSubmit = () => {
+  const handleFileChange = (event, setFile) => {
+      const file = event.target.files[0];
+      if (file) {
+          setFile(file);
+      }
+  };
+
+  const uploadFiles = async () => {
+        const storage = getStorage(app);
+        let videoFileUrl, extraFileUrl;
+
+        if (videoFile) {
+            const videoFileRef = storageRef(storage, `videos/${videoFile.name}`);
+            await uploadBytes(videoFileRef, videoFile);
+            videoFileUrl = await getDownloadURL(videoFileRef);
+            console.log(videoFileUrl)
+            setFormData({
+            ...formData,
+            videofil: videoFileUrl
+            })
+        }
+
+        if (extraFile) {
+            const extraFileRef = storageRef(storage, `extras/${extraFile.name}`);
+            await uploadBytes(extraFileRef, extraFile);
+            extraFileUrl = await getDownloadURL(extraFileRef);
+        }
+
+        return { videoFileUrl, extraFileUrl };
+    };
+
+  const handleSubmit = async () => {
       const shouldSubmit = window.confirm("Er du sikker på at du vil publisere kurset?");
       
       if (shouldSubmit) {
+          
           const databaseRef = ref(database, 'Kurs');
           LukkOverlay();
+
+          await uploadFiles();
+
+          console.log(formData)
   
           push(databaseRef, formData)
               .then(() => {
@@ -133,7 +173,7 @@ export default function DineKurs() {
                         </div>
                         <div className='flex items-center justify-between ml-8 mb-12'>
                           <p className='text-primary font-semibold'>Last opp videofilen din her</p>
-                          <input type="file" className='w-44' />
+                          <input type="file" onChange={(e) => handleFileChange(e, setVideoFile)} className='w-44' />
                         </div>
                         <div className='flex items-center justify-between ml-8 mb-12'>
                           <p className='text-primary font-semibold'>Ekstra filer (For eksempel microsoft dokumenter)</p>

@@ -1,6 +1,19 @@
 import Link from "next/link"
+import { logout } from "@/auth/firebaseAuth";
+import { useRouter } from "next/router";
 
 export default function Logg() {
+    const router = useRouter();
+
+    const handleLogout = async () => {
+      try {
+        await logout(router);
+        console.log("User logged out successfully");
+        router.push("/");
+      } catch (error) {
+        console.error("Error logging out:", error);
+      }
+    };
     return (
         <>
             <main className="w-screen h-screen bg-background flex">
@@ -11,7 +24,7 @@ export default function Logg() {
                     <Link href="/backpage/liktekurs" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Likte Kurs</Link>
                     <div className="h-[24rem]"></div>
                     <button className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Tilbake</button>
-                    <button className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Logg ut</button>
+                    <button onClick={handleLogout} className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Logg ut</button>
                 </div>
                 <div className="w-4/5"></div>
             </main>

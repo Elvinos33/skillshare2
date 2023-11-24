@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <main className="w-screen h-screen bg-background">
       <Header toggleSidebar={toggleSidebar} />
-      <div className='w-full h-[80rem] overflow-y-auto'>
+      <div className='w-full h-[80rem] overflow-y-auto pt-[4rem]'>
         <ul className='w-screen min-h-[64rem] grid grid-cols-5 pt-16 px-16 overflow-y'>
           {data.map((item, index) => (
               <li key={index} className='w-full h-[6rem] px-2'>

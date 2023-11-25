@@ -26,8 +26,8 @@ export default function DineKurs() {
     beskrivelse: '',
     kommenter: '',
     anmelding: '',
-    //videofil: '',
-    // ekstrafil: '', 
+    videofil: '',
+    ekstrafil: '', 
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -66,16 +66,26 @@ export default function DineKurs() {
         return { videoFileUrl, extraFileUrl };
     };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+      event.preventDefault();
       const shouldSubmit = window.confirm("Er du sikker på at du vil publisere kurset?");
       
       if (shouldSubmit) {
+          console.log(await uploadFiles())
+          const { videoFileUrl, extraFileUrl } = await uploadFiles();
+          console.log(videoFileUrl)
+
+          const updatedFormData = {
+            ...formData,
+            videofil: videoFileUrl,
+            ekstrafil: extraFileUrl
+          };
           
           const databaseRef = ref(database, 'Kurs');
           LukkOverlay();
 
   
-          push(databaseRef, formData)
+          push(databaseRef, updatedFormData)
               .then(() => {
                   setIsSubmitted(true);
                   setFormData({
@@ -83,8 +93,8 @@ export default function DineKurs() {
                     beskrivelse: '',
                     kommenter: '',
                     anmelding: '',
-                    // videofil: '',
-                    // ekstrafil: '',
+                    videofil: '',
+                    ekstrafil: '',
                   });
               })
               .catch((error) => {
@@ -167,11 +177,11 @@ export default function DineKurs() {
                         </div>
                         <div className='flex items-center justify-between ml-8 mb-12'>
                           <p className='text-primary font-semibold'>Last opp videofilen din her</p>
-                          <input type="file" className='w-44' />
+                          <input type="file" onChange={(e) => handleFileChange(e, setVideoFile)} className='w-44' />
                         </div>
                         <div className='flex items-center justify-between ml-8 mb-12'>
                           <p className='text-primary font-semibold'>Ekstra filer (For eksempel microsoft dokumenter)</p>
-                          <input type="file" className='w-44' />
+                          <input type="file" onChange={(e) => handleFileChange(e, setExtraFile)} className='w-44' />
                         </div>
                       </div>
                     </div>

@@ -3,8 +3,22 @@ import { useState } from 'react';
 import { getDatabase, ref, push } from 'firebase/database';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import app from '@/lib/firebaseConfig';
+import { useRouter } from 'next/router';
+import { logout } from '@/auth/firebaseAuth';
 
 export default function DineKurs() {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await logout(router);
+      console.log("User logged out successfully");
+      router.push("/");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+
   const [showOverlay, setShowOverlay] = useState(false);
 
   const ÅpneOverlay = () => {
@@ -113,7 +127,7 @@ export default function DineKurs() {
             <Link href="/backpage/liktekurs" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Likte Kurs</Link>
             <div className="h-[24rem]"></div>
             <Link href="/" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Tilbake</Link>
-            <button className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary"><Link href="/">Logg ut</Link></button>
+            <button onClick={handleSubmit} className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Logg ut</button>
         </div>
         <div className="w-4/5 p-2 relative">
           <div className="h-[7rem] w-full flex items-center shadow-md">

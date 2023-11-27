@@ -126,7 +126,7 @@ export default function DineKurs() {
             <Link href="/backpage/dinekurs" className="w-full flex flex-start py-4 pl-4 bg-background font-semibold text-primary">Dine Kurs</Link>
             <div className="h-[24rem]"></div>
             <Link href="/" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Tilbake</Link>
-            <button onClick={handleSubmit} className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Logg ut</button>
+            <button onClick={handleLogout} className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Logg ut</button>
         </div>
         <div className="w-4/5 p-2 relative">
           <div className="h-[7rem] w-full flex items-center shadow-md">

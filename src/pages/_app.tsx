@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       onAuthStateChanged(auth, (user) => {
         if (!user && router.pathname.startsWith("/backpage")) {
-          router.push("/");
+          router.push("/login");
         }
       });
     };

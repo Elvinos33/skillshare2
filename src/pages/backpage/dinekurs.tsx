@@ -3,8 +3,22 @@ import { useState } from 'react';
 import { getDatabase, ref, push } from 'firebase/database';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import app from '@/lib/firebaseConfig';
+import { useRouter } from 'next/router';
+import { logout } from '@/auth/firebaseAuth';
 
 export default function DineKurs() {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await logout(router);
+      console.log("User logged out successfully");
+      router.push("/");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+
   const [showOverlay, setShowOverlay] = useState(false);
 
   const ÅpneOverlay = () => {
@@ -26,8 +40,8 @@ export default function DineKurs() {
     beskrivelse: '',
     kommenter: '',
     anmelding: '',
-    //videofil: '',
-    // ekstrafil: '', 
+    videofil: '',
+    ekstrafil: '', 
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -66,16 +80,26 @@ export default function DineKurs() {
         return { videoFileUrl, extraFileUrl };
     };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+      event.preventDefault();
       const shouldSubmit = window.confirm("Er du sikker på at du vil publisere kurset?");
       
       if (shouldSubmit) {
+          console.log(await uploadFiles())
+          const { videoFileUrl, extraFileUrl } = await uploadFiles();
+          console.log(videoFileUrl)
+
+          const updatedFormData = {
+            ...formData,
+            videofil: videoFileUrl,
+            ekstrafil: extraFileUrl
+          };
           
           const databaseRef = ref(database, 'Kurs');
           LukkOverlay();
 
   
-          push(databaseRef, formData)
+          push(databaseRef, updatedFormData)
               .then(() => {
                   setIsSubmitted(true);
                   setFormData({
@@ -83,8 +107,8 @@ export default function DineKurs() {
                     beskrivelse: '',
                     kommenter: '',
                     anmelding: '',
-                    // videofil: '',
-                    // ekstrafil: '',
+                    videofil: '',
+                    ekstrafil: '',
                   });
               })
               .catch((error) => {
@@ -103,7 +127,7 @@ export default function DineKurs() {
             <Link href="/backpage/liktekurs" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Likte Kurs</Link>
             <div className="h-[24rem]"></div>
             <Link href="/" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Tilbake</Link>
-            <button className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary"><Link href="/">Logg ut</Link></button>
+            <button onClick={handleSubmit} className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Logg ut</button>
         </div>
         <div className="w-4/5 p-2 relative">
           <div className="h-[7rem] w-full flex items-center shadow-md">
@@ -167,11 +191,11 @@ export default function DineKurs() {
                         </div>
                         <div className='flex items-center justify-between ml-8 mb-12'>
                           <p className='text-primary font-semibold'>Last opp videofilen din her</p>
-                          <input type="file" className='w-44' />
+                          <input type="file" onChange={(e) => handleFileChange(e, setVideoFile)} className='w-44' />
                         </div>
                         <div className='flex items-center justify-between ml-8 mb-12'>
                           <p className='text-primary font-semibold'>Ekstra filer (For eksempel microsoft dokumenter)</p>
-                          <input type="file" className='w-44' />
+                          <input type="file" onChange={(e) => handleFileChange(e, setExtraFile)} className='w-44' />
                         </div>
                       </div>
                     </div>

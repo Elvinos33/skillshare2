@@ -21,7 +21,6 @@ export default function Logg() {
                     <Link href="/backpage/konto" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Din Konto</Link>
                     <button className="w-full flex flex-start py-4 pl-4 bg-background font-semibold text-primary">Logg</button>
                     <Link href="/backpage/dinekurs" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Dine Kurs</Link>
-                    <Link href="/backpage/liktekurs" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Likte Kurs</Link>
                     <div className="h-[24rem]"></div>
                     <button className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Tilbake</button>
                     <button onClick={handleLogout} className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Logg ut</button>

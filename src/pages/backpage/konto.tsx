@@ -26,9 +26,6 @@ export default function Konto() {
           <a href="/backpage/dinekurs" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">
             Dine Kurs
           </a>
-          <a href="/backpage/liktekurs" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">
-            Likte Kurs
-          </a>
           <div className="h-[24rem]"></div>
           <a href="/" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">
             Tilbake

@@ -36,7 +36,7 @@ export default function Home() {
       <div className='w-full h-[80rem] overflow-y-auto'>
         <ul className='w-screen min-h-[64rem] grid grid-cols-5 pt-16 px-16 overflow-y'>
           {data.map((item, index) => (
-              <li key={index} className='w-full h-[6rem] px-2'>
+              <li key={index} className='w-full mb-3 px-2'>
                 <div className='border-primary border h-[14rem] p-2 rounded-lg'>
                   {item.navn}
                   {item.tema}

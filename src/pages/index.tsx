@@ -38,7 +38,7 @@ export default function Home() {
           {data.map((item, index) => (
               <li key={index} className='w-full mb-3 px-2'>
                 <div className='border-primary border h-[14rem] p-2 rounded-lg'>
-                  {item.navn}
+                  {item.tittel}
                   {item.tema}
                 </div>
               </li>

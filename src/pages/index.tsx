@@ -37,10 +37,10 @@ export default function Home() {
         <ul className='w-screen min-h-[64rem] grid grid-cols-5 pt-16 px-16 overflow-y'>
           {data.map((item, index) => (
               <li key={index} className='w-full mb-3 px-2'>
-                <div className='border-primary border h-[14rem] p-2 rounded-lg'>
+                <a href={item.videofil} className='border-primary border h-[14rem] p-2 rounded-lg'>
                   {item.tittel}
                   {item.tema}
-                </div>
+                </a>
               </li>
             ))}
           </ul>

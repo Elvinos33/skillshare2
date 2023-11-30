@@ -14,6 +14,10 @@ export default function Logg() {
         console.error("Error logging out:", error);
       }
     };
+
+    const noLogDeleteAlert = () => {
+      alert("Denne funksjonen er kke laget enda.");
+    }
     return (
         <>
             <main className="w-screen h-screen bg-background flex">
@@ -32,7 +36,7 @@ export default function Logg() {
             </div>
             <div className="w-1/2 flex justify-end mr-4">
               <input type="text" className="text-black rounded p-3 flex outline-none items-center border border-primary bg-background" placeholder="Søk..."/>
-              <button  className="ml-8 py-2 w-[10rem] bg-primary rounded flex justify-center text-background font-semibold items-center hover:border hover:border-primary hover:bg-background hover:text-primary">Slett logg</button>
+              <button onClick={noLogDeleteAlert} className="ml-8 py-2 w-[10rem] bg-primary rounded flex justify-center text-background font-semibold items-center hover:border hover:border-primary hover:bg-background hover:text-primary">Slett logg</button>
             </div>
           </div>
           <div className="mt-2 ml-4">

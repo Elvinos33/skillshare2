@@ -15,7 +15,7 @@ export default function Konto() {
   };
 
   const noEditAlert = () => {
-    alert("Denne funksjoner er kke laget enda.");
+    alert("Denne funksjonen er kke laget enda.");
   }
   return (
     <>

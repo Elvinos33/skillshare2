@@ -2,6 +2,7 @@ import Header from '@/components/header'
 import React, {useState, useEffect} from 'react';
 import {getDatabase, ref, onValue} from 'firebase/database';
 import app from "@/lib/firebaseConfig"
+import Link from 'next/link';
 
 export default function Home() {
 
@@ -25,6 +26,7 @@ export default function Home() {
       onValue(dataRef, () => {});
       };
   }, []);
+  
 
   const toggleSidebar = () => {
     setSidebarVisibility(!isSidebarVisible);
@@ -34,14 +36,14 @@ export default function Home() {
     <main className="w-screen h-screen bg-background">
       <Header toggleSidebar={toggleSidebar} />
       <div className='w-full h-[80rem] overflow-y-auto pt-[4rem]'>
-        <ul className='w-screen min-h-[64rem] grid grid-cols-5 pt-16 px-16 overflow-y'>
+        <ul className='w-screen grid grid-cols-5 pt-16 px-16 overflow-y'>
           {data.map((item, index) => (
               <li key={index} className='w-full mb-3 px-2'>
-                <div className='border-primary border h-[14rem] p-2 rounded-lg'>
-                  <a className='h-full w-full' href={item.videofil}>
-                  {item.tittel} 
-                  {item.tema}
-                  </a>
+                <div className='h-fit hover:bg-gray-100 transition rounded'>
+                  <Link className='flex p-2 flex-col rounded border justify-end h-full w-full text-black' href={item.videofil}>
+                    <img height={200}  className='rounded flex justify-center w-full max-h-200' src='Thumbnail.png'/>
+                    <p className='p-2'>{item.tittel}</p>
+                  </Link>
                 </div>
               </li>
             ))}

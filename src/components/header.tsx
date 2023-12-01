@@ -17,7 +17,9 @@ export default function Header({ toggleSidebar }) {
   return (
     <main className="h-[7rem] w-screen flex items-center shadow-md fixed bg-background">
       <div className="w-1/2 pl-8">
-        <div className="flex bg-background"></div>
+        <Link href={"/"} className="flex bg-background items-center">
+          <img src="logo.png" height={200} width={200} />
+        </Link>
       </div> 
       <div className="w-1/2 flex justify-end mr-4">
         <div className="relative">

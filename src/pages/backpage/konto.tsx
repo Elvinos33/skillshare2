@@ -20,7 +20,7 @@ export default function Konto() {
   return (
     <>
       <main className="w-screen h-screen bg-background flex">
-        <div className="w-1/5 hidden md:block bg-primary pt-8 flex flex-col justify-between">
+        <div className="w-1/5 bg-primary pt-8 flex flex-col justify-between">
           <div>
             <button className="w-full flex flex-start py-4 pl-4 bg-background font-semibold text-primary">
               Din Konto
@@ -41,7 +41,7 @@ export default function Konto() {
             </button>
           </div>
           </div>
-        <div className="w-full md:w-4/5 p-2 relative">
+        <div className="w-4/5 p-2 relative">
           <div className="h-[7rem] w-full flex items-center shadow-md">
             <div className="w-1/2 pl-8">
               <div className="flex bg-background text-2xl font-semibold">Din konto</div>

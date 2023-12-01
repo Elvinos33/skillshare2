@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getDatabase, ref, push } from 'firebase/database';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import app from '@/lib/firebaseConfig';
 import { useRouter } from 'next/router';
 import { logout } from '@/auth/firebaseAuth';
+import { onValue } from 'firebase/database';
 
 export default function DineKurs() {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function DineKurs() {
   };
 
   const [showOverlay, setShowOverlay] = useState(false);
+  const [data, setData] = useState([])
 
   const ÅpneOverlay = () => {
     setShowOverlay(true);
@@ -43,6 +45,24 @@ export default function DineKurs() {
     videofil: '',
     ekstrafil: '', 
   });
+
+  useEffect(() => {
+      const db = getDatabase(app);
+      const dataRef = ref(db, 'Kurs');
+
+      onValue(dataRef, (snapshot) => {
+      const dataFromFirebase = snapshot.val();
+
+      if (dataFromFirebase) {
+          const dataArray = Object.values(dataFromFirebase);
+          setData(dataArray);
+      }
+      });
+
+      return () => {
+      onValue(dataRef, () => {});
+      };
+  }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
       const { name, value } = event.target;
@@ -120,13 +140,16 @@ export default function DineKurs() {
   return (
     <>
       <main className="w-screen h-screen bg-background flex">
-        <div className="w-1/5 bg-primary pt-8">
+        <div className="w-1/5 bg-primary pt-8 flex flex-col justify-between">
+          <div>
             <Link href="/backpage/konto" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Din Konto</Link>
             <Link href="/backpage/logg" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Logg</Link>
             <Link href="/backpage/dinekurs" className="w-full flex flex-start py-4 pl-4 bg-background font-semibold text-primary">Dine Kurs</Link>
-            <div className="h-[24rem]"></div>
-            <Link href="/" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Tilbake</Link>
+          </div>
+          <div>
+            <Link href="/" className="w-full flex py-4 pl-4 hover:bg-background text-background hover:text-primary">Tilbake</Link>
             <button onClick={handleLogout} className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Logg ut</button>
+          </div>
         </div>
         <div className="w-4/5 p-2 relative">
           <div className="h-[7rem] w-full flex items-center shadow-md">
@@ -138,8 +161,24 @@ export default function DineKurs() {
               <button onClick={ÅpneOverlay} className="ml-8 py-2 w-[10rem] bg-primary rounded flex justify-center text-background font-semibold items-center hover:border hover:border-primary hover:bg-background hover:text-primary">Legg til kurs</button>
             </div>
           </div>
+          <div>
+            <ul className='grid grid-cols-5 pt-16 px-16 overflow-y'>
+              {data.map((item, index) => (
+                <li key={index} className='w-full mb-3 px-2'>
+                  <div className='h-fit hover:bg-gray-100 transition rounded'>
+                    <Link className='flex p-2 flex-col rounded border justify-end h-full w-full text-black' href={item.videofil}>
+                      <img height={200}  className='rounded flex justify-center w-full max-h-200' src='/Thumbnail.png'/>
+                      <p className='p-2'>{item.tittel}</p>
+                    </Link>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+          </div>
           {showOverlay && (
-                  <form className="fixed top-0 right-0 w-4/5 h-screen bg-background z-50 p-4">
+                  <form className="fixed top-0 flex flex-col justify-between right-0 w-4/5 h-screen bg-background z-50 p-4">
+                    <div className='flex flex-col w-full'>
                     <div className='flex w-full'>
                       <div className='w-1/3 p-2'>
                           <div className='border border-primary rounded mb-4'>
@@ -148,7 +187,7 @@ export default function DineKurs() {
                           </div>
                           <div className='border border-primary rounded'>
                               <p className='ml-2 mt-1 text-secondary'>Beskrivelse</p>
-                              <textarea name="beskrivelse" required value={formData.beskrivelse} onChange={handleInputChange} maxLength={600} className="text-black rounded p-3 flex items-center bg-background w-full resize-none outline-none h-[20rem]" placeholder="For å lage videon brukte jeg..."/>
+                              <textarea name="beskrivelse" required value={formData.beskrivelse} onChange={handleInputChange} maxLength={600} className="text-black rounded p-3 flex items-center bg-background w-full resize-none outline-none h-[20rem]" placeholder="For å lage videoen brukte jeg..."/>
                           </div>
                       </div>
                       <div className='w-2/3 h-[27.7rem] p-2 pt-2'>
@@ -198,9 +237,10 @@ export default function DineKurs() {
                         </div>
                       </div>
                     </div>
-                    <div className='flex h-[34rem]'>
+                    </div>
+                    <div className='flex'>
                       <button onClick={handleSubmit} className="ml-2 mt-56 py-2 w-[10rem] h-[4rem] bg-primary rounded flex justify-center text-background font-semibold items-center hover:border hover:border-primary hover:bg-background hover:text-primary">Legg til kurs</button>
-                      <button onClick={LukkOverlay} className="ml-4 mt-56 py-2 w-[10rem] h-[4rem] bg-background rounded flex justify-center text-primary font-semibold items-center border border-primary hover:bg-primary hover:text-background">Kanseler</button>
+                      <button onClick={LukkOverlay} className="ml-4 mt-56 py-2 w-[10rem] h-[4rem] bg-background rounded flex justify-center text-primary font-semibold items-center border border-primary hover:bg-primary hover:text-background">Avbryt</button>
                     </div>
                 </form>)}
             </div>

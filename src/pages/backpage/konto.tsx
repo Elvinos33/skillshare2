@@ -20,24 +20,27 @@ export default function Konto() {
   return (
     <>
       <main className="w-screen h-screen bg-background flex">
-        <div className="w-1/5 bg-primary pt-8">
-          <button className="w-full flex flex-start py-4 pl-4 bg-background font-semibold text-primary">
-            Din Konto
-          </button>
-          <a href="/backpage/logg" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">
-            Logg
-          </a>
-          <a href="/backpage/dinekurs" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">
-            Dine Kurs
-          </a>
-          <div className="h-[24rem]"></div>
-          <a href="/" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">
-            Tilbake
-          </a>
-          <button onClick={handleLogout} className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">
-            Logg ut
-          </button>
-        </div>
+        <div className="w-1/5 bg-primary pt-8 flex flex-col justify-between">
+          <div>
+            <button className="w-full flex flex-start py-4 pl-4 bg-background font-semibold text-primary">
+              Din Konto
+            </button>
+            <a href="/backpage/logg" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">
+              Logg
+            </a>
+            <a href="/backpage/dinekurs" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">
+              Dine Kurs
+            </a>
+          </div>
+          <div>
+            <a href="/" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">
+              Tilbake
+            </a>
+            <button onClick={handleLogout} className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">
+              Logg ut
+            </button>
+          </div>
+          </div>
         <div className="w-4/5 p-2 relative">
           <div className="h-[7rem] w-full flex items-center shadow-md">
             <div className="w-1/2 pl-8">

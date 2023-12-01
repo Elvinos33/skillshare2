@@ -21,13 +21,16 @@ export default function Logg() {
     return (
         <>
             <main className="w-screen h-screen bg-background flex">
-                <div className="w-1/5 bg-primary pt-8">
+                <div className="w-1/5 bg-primary pt-8 flex flex-col justify-between">
+                  <div>
                     <Link href="/backpage/konto" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Din Konto</Link>
                     <button className="w-full flex flex-start py-4 pl-4 bg-background font-semibold text-primary">Logg</button>
                     <Link href="/backpage/dinekurs" className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Dine Kurs</Link>
-                    <div className="h-[24rem]"></div>
+                  </div>
+                  <div>
                     <button className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Tilbake</button>
                     <button onClick={handleLogout} className="w-full flex flex-start py-4 pl-4 hover:bg-background text-background hover:text-primary">Logg ut</button>
+                  </div>
                 </div>
                 <div className="w-4/5 p-2 relative">
           <div className="h-[7rem] w-full flex items-center shadow-md">
